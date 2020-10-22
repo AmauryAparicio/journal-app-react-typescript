@@ -7,12 +7,16 @@ const AuthRouter: FunctionComponent<{ routes: Array<iRoute> }> = ({
   routes,
 }) => {
   return (
-    <Switch>
-      {routes.map((route) => (
-        <RouteWithSubRoutes key={route.path} {...route} />
-      ))}
-      <Redirect to="/auth/login" />
-    </Switch>
+    <div className="auth__main">
+      <div className="auth__box-container">
+        <Switch>
+          {routes.map((route) => (
+            <RouteWithSubRoutes key={route.path} {...route} />
+          ))}
+          <Redirect to="/auth/login" />
+        </Switch>
+      </div>
+    </div>
   );
 };
 

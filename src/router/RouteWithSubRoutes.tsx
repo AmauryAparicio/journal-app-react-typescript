@@ -13,7 +13,6 @@ const RouteWithSubRoutes: FunctionComponent<iRoute> = (route) => {
     routes !== undefined &&
       routes.map((subRoutes) => {
         subRoutes.type = type;
-        subRoutes.path = path + subRoutes.path;
         return routes;
       });
   });

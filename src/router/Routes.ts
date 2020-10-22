@@ -15,12 +15,12 @@ const Routes: Array<iRoute> = [
       {
         path: "/auth/login",
         component: LoginScreen,
-        exact: true,
+        exact: true
       },
       {
         path: '/auth/register',
         component: RegisterScreen,
-        exact: true,
+        exact: true
       },
     ]
   },
