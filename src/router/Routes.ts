@@ -4,14 +4,17 @@ import ErrorScreen from '../ErrorScreen';
 import JournalScreen from './../components/journal/JournalScreen';
 import AuthRouter from './AuthRouter';
 import { iRoute } from './../misc/Interfaces';
+import { routesType } from './../misc/Types';
 
+const { auth, hidden } = routesType
 
 const Routes: Array<iRoute> = [
   {
     path: '/auth',
     component: AuthRouter,
+    type: hidden,
     routes: [
-      
+
       {
         path: "/auth/login",
         component: LoginScreen,
@@ -27,7 +30,8 @@ const Routes: Array<iRoute> = [
   {
     path: '/',
     component: JournalScreen,
-    exact: true
+    exact: true,
+    type: auth
   },
   {
     path: '*',

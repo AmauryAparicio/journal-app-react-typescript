@@ -1,17 +1,43 @@
-import React, { FunctionComponent } from "react";
+import React, { FormEvent, FunctionComponent } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { startGoogleLogin, startLoginEmailPassword } from "../../actions/auth";
+import { iAppState, iUiState } from "../../misc/Interfaces";
+import useForm from "./../../hooks/useForm";
 
 const LoginScreen: FunctionComponent = () => {
+  const dispatch = useDispatch();
+
+  const { loading } = useSelector<iAppState>(({ ui }) => ui) as iUiState;
+
+  const [formValues, handleInputChange] = useForm({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formValues;
+
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(startLoginEmailPassword(email, password));
+  };
+
+  const handleGoogleLogin = () => {
+    dispatch(startGoogleLogin());
+  };
+
   return (
     <>
       <h3 className="auth__title">Login</h3>
-      <form>
+      <form onSubmit={handleLogin}>
         <input
           type="email"
           placeholder="E-mail"
           name="email"
           className="auth__input"
           autoComplete="off"
+          value={email}
+          onChange={handleInputChange}
         />
         <input
           type="password"
@@ -19,13 +45,19 @@ const LoginScreen: FunctionComponent = () => {
           name="password"
           className="auth__input"
           autoComplete="off"
+          value={password}
+          onChange={handleInputChange}
         />
-        <button type="submit" className="btn btn-primary btn-block">
+        <button
+          type="submit"
+          className="btn btn-primary btn-block"
+          disabled={loading}
+        >
           Login
         </button>
         <div className="auth__social-networks">
           <p>Login with social networks</p>
-          <div className="google-btn">
+          <div className="google-btn" onClick={handleGoogleLogin}>
             <div className="google-icon-wrapper">
               <img
                 className="google-icon"

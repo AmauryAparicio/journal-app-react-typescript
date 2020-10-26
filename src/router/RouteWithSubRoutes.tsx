@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Redirect, Route, useLocation } from "react-router-dom";
-import { iRoute } from "../misc/Interfaces";
+import { iAppState, iAuthState, iRoute } from "../misc/Interfaces";
 import { routesType } from "../misc/Types";
 
 const RouteWithSubRoutes: FunctionComponent<iRoute> = (route) => {
@@ -8,6 +9,8 @@ const RouteWithSubRoutes: FunctionComponent<iRoute> = (route) => {
   const { auth, hidden } = routesType;
 
   const location = useLocation();
+
+  const { loggedIn } = useSelector<iAppState>(({ auth }) => auth) as iAuthState;
 
   useEffect(() => {
     routes !== undefined &&
@@ -23,17 +26,17 @@ const RouteWithSubRoutes: FunctionComponent<iRoute> = (route) => {
         "lastPath",
         location.pathname + (location.search ? location.search : "")
       );
-      return true ? (
+      return loggedIn ? (
         <Route
           exact={exact !== undefined && exact}
           path={path}
           render={(props) => <route.component {...props} routes={routes} />}
         />
       ) : (
-        <Redirect to="/login" />
+        <Redirect to="/auth/login" />
       );
     case hidden:
-      return !false ? (
+      return !loggedIn ? (
         <Route
           exact={exact !== undefined && exact}
           path={path}
