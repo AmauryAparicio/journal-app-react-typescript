@@ -39,7 +39,7 @@ const RegisterScreen: FunctionComponent = () => {
     return true;
   };
   return (
-    <>
+    <div className="auth__box-container animate__animated animate__bounceIn">
       <h3 className="auth__title">Register</h3>
       <form onSubmit={handleRegister}>
         {msgError && <div className="auth__alert-error">{msgError}</div>}
@@ -86,7 +86,7 @@ const RegisterScreen: FunctionComponent = () => {
           Already registered?
         </Link>
       </form>
-    </>
+    </div>
   );
 };
 

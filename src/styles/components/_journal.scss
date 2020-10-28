@@ -51,10 +51,12 @@
     display         : flex;
     margin-bottom   : 10px;
     overflow        : hidden;
+    justify-content : space-between;
 
     &-picture {
-      height: 75px;
-      width : 75px;
+      height             : 75px;
+      width              : 75px;
+      background-position: center;
     }
 
     &-body {

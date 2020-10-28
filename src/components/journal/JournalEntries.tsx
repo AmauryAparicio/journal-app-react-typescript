@@ -1,12 +1,14 @@
 import React, { FunctionComponent } from "react";
 import JournalEntry from "./JournalEntry";
+import { useSelector } from "react-redux";
+import { iAppState, iNote, iNotesState } from "../../misc/Interfaces";
 
 const JournalEntries: FunctionComponent = () => {
-  const entries = [1, 2, 3, 4, 5, 6];
+  const { notes } = useSelector<iAppState>(({ notes }) => notes) as iNotesState;
   return (
     <div className="journal__entries">
-      {entries.map((value) => (
-        <JournalEntry key={value} />
+      {(notes as Array<iNote>).map((note) => (
+        <JournalEntry key={note.id} {...note} />
       ))}
     </div>
   );

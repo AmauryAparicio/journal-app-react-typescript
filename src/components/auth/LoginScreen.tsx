@@ -27,7 +27,7 @@ const LoginScreen: FunctionComponent = () => {
   };
 
   return (
-    <>
+    <div className="auth__box-container animate__animated animate__bounceIn">
       <h3 className="auth__title">Login</h3>
       <form onSubmit={handleLogin}>
         <input
@@ -74,7 +74,7 @@ const LoginScreen: FunctionComponent = () => {
           Create new account
         </Link>
       </form>
-    </>
+    </div>
   );
 };
 

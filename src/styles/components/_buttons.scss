@@ -31,6 +31,15 @@
   &-block {
     width: 100%;
   }
+
+  &-danger {
+    background-color: red;
+    transition      : all .3s;
+
+    &:hover {
+      background-color: darken(red, 10%);
+    }
+  }
 }
 
 .google-btn {

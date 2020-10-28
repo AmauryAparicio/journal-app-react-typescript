@@ -1,26 +1,44 @@
 import React, { FunctionComponent } from "react";
+import { iNote } from "../../misc/Interfaces";
+import moment from "moment";
+import { useDispatch } from "react-redux";
+import { activeNote } from "../../actions/notes";
 
-const JournalEntry: FunctionComponent = () => {
+const JournalEntry: FunctionComponent<iNote> = ({
+  id,
+  date,
+  title,
+  body,
+  imageUrl,
+}) => {
+  const dispatch = useDispatch();
+  const noteDate = moment(date);
+
+  const handleEntryClick = () => {
+    dispatch(activeNote(id, { title, date, body, imageUrl }));
+  };
+
   return (
-    <div className="journal__entry pointer">
-      <div
-        className="journal__entry-picture"
-        style={{
-          backgroundSize: "cover",
-          backgroundImage:
-            "url(https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero.jpg)",
-        }}
-      ></div>
+    <div
+      className="journal__entry pointer animate__animated animate__backInLeft animate__faster"
+      onClick={handleEntryClick}
+    >
+      {imageUrl && (
+        <div
+          className="journal__entry-picture"
+          style={{
+            backgroundSize: "cover",
+            backgroundImage: `url(${imageUrl})`,
+          }}
+        ></div>
+      )}
       <div className="journal__entry-body">
-        <p className="journal__entry-title">Un nuevo día</p>
-        <p className="journal__entry-content">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque,
-          minima.
-        </p>
+        <p className="journal__entry-title">{title}</p>
+        <p className="journal__entry-content">{body}</p>
       </div>
       <div className="journal__entry-date-box">
-        <span>Monday</span>
-        <h4>28</h4>
+        <span>{noteDate.format("dddd")}</span>
+        <h4>{noteDate.format("Do")}</h4>
       </div>
     </div>
   );
